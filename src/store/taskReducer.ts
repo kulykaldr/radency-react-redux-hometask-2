@@ -63,6 +63,29 @@ export const taskReducer = (state = initialState, action: TaskAction): TaskState
                 modalClosed: state.modalClosed,
                 currentTask: initialState.currentTask,
             }
+        
+        case TaskActionTypes.DELETE_ALL_TASKS:
+            return {
+                tasks: state.tasks.filter(item => !action.payload.includes(item)),
+                modalClosed: state.modalClosed,
+                currentTask: initialState.currentTask,
+            }
+
+            case TaskActionTypes.ARCHIVED_ALL_TASKS:
+                return {
+                    tasks: state.tasks.map(item => {
+                        if (action.payload.includes(item)) {
+                            return {
+                                ...item,
+                                archived: !item.archived,
+                            }
+                        } else {
+                            return item
+                        }
+                    }),
+                    modalClosed: state.modalClosed,
+                    currentTask: initialState.currentTask,
+                }
 
         default:
             return state

@@ -27,3 +27,11 @@ export const resetTaskFormAction = () => (
 export const toggleModalAction = () => (
   { type: TaskActionTypes.TOGGLE_MODAL }
 )
+
+export const deleteAllTasksAction = (payload: Task[]) => (
+  { type: TaskActionTypes.DELETE_ALL_TASKS, payload }
+)
+
+export const archivedAllTasksAction = (payload: Task[]) => (
+  { type: TaskActionTypes.ARCHIVED_ALL_TASKS, payload }
+)

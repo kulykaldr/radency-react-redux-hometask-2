@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message';
 import strToHash from '../helpers/strToHash'
 import { useActions } from '../hooks/useActions'
 import { useTypedSelector } from '../hooks/useTypedSelector'
@@ -9,7 +10,7 @@ const TaskForm = () => {
   const { tasks, currentTask, modalClosed } = useTypedSelector(state => state.task)
   const { toggleModalAction, editTaskAction, addTaskAction } = useActions()
 
-  const { register, handleSubmit, reset, setValue, getValues } = useForm()
+  const { register, handleSubmit, reset, setValue, getValues, formState: {errors} } = useForm()
 
   useEffect(() => {
     if (currentTask.id !== 0) {
@@ -25,7 +26,7 @@ const TaskForm = () => {
     }
   }, [modalClosed, reset])
 
-  const onSubmit = handleSubmit((data, e) => {
+  const onSubmit = handleSubmit(() => {
     const name = getValues('name')
     const content = getValues('content')
     const category = getValues('category')
@@ -75,7 +76,8 @@ const TaskForm = () => {
       <div>
         <label htmlFor="name">Name</label><br />
         <input type="text" id="name" placeholder="Input task name"
-          {...register("name")} />
+          {...register('name', {required: 'This is required', minLength: {value: 2, message: 'Must be more than 2 characters long'}})} />
+        <ErrorMessage errors={errors} name="name" as="p" style={{color: 'red'}}/>
       </div>
 
       <div>
@@ -92,7 +94,8 @@ const TaskForm = () => {
       <div>
         <label htmlFor="content">Content</label><br />
         <input type="text" id="content" placeholder="Input your content with date"
-          {...register("content")} />
+          {...register('content', {required: 'This is required', minLength: {value: 2, message: 'Must be more than 2 characters long'}})} />
+        <ErrorMessage errors={errors} name="content" as="p" style={{color: 'red'}}/>
       </div>
 
       <input type="submit" className="btn" value="Submit" />

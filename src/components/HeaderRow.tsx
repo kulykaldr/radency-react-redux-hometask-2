@@ -1,6 +1,11 @@
 import React from 'react'
+import { useActions } from '../hooks/useActions'
+import { Task } from '../store/taskReducerTypes'
 
-const HeaderRow: React.FC<{ columns: string[], isSummary?: boolean }> = ({ columns, isSummary = false }) => {
+const HeaderRow: React.FC<{ tasks: Task[], columns: string[], isSummary?: boolean }> = 
+    ({ tasks, columns, isSummary = false }) => {
+  const {deleteAllTasksAction, archivedAllTasksAction} = useActions()
+  
   return (
     <tr>
       <th> </th>
@@ -10,8 +15,8 @@ const HeaderRow: React.FC<{ columns: string[], isSummary?: boolean }> = ({ colum
       </th>))}
 
       {isSummary === false && <th className='cell-btn'>
-        <div className="icon-action icon-archive-white"></div>
-        <div className="icon-action icon-trash-white"></div>
+        <button className="btn-action btn-archive-white" onClick={() => archivedAllTasksAction(tasks)}></button>
+        <button className="btn-action btn-trash-white" onClick={() => deleteAllTasksAction(tasks)}></button>
       </th>}
     </tr>
   )

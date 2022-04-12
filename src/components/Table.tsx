@@ -26,7 +26,7 @@ const Table: React.FC<{ tasks: Task[], isSummary?: boolean }> = ({ tasks = [], i
   return (
     <table>
       <thead>
-        <HeaderRow columns={columns} isSummary={isSummary} />
+        <HeaderRow tasks={tasks} columns={columns} isSummary={isSummary} />
       </thead>
 
       <tbody>

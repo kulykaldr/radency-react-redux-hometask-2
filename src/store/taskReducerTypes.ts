@@ -37,6 +37,8 @@ export enum TaskActionTypes {
     SET_CURRENT_TASK = 'SET_CURRENT_TASK',
     SET_CATEGORIES = 'SET_CATEGORIES',
     RESET_TASK_FORM = 'RESET_TASK_FORM',
+    DELETE_ALL_TASKS = 'DELETE_ALL_TASKS',
+    ARCHIVED_ALL_TASKS = 'ARCHIVED_ALL_TASKS',
 }
 
 interface AddTaskAction {
@@ -74,6 +76,17 @@ interface ResetTaskFormAction {
     payload: Category[]
 }
 
+interface DeleteAllTasksAction {
+    type: TaskActionTypes.DELETE_ALL_TASKS
+    payload: Task[]
+}
+
+interface ArchivedAllTasksAction {
+    type: TaskActionTypes.ARCHIVED_ALL_TASKS
+    payload: Task[]
+}
+
 export type TaskAction = AddTaskAction | EditTaskAction |
     ToggleArchivedTaskAction | ToggleModalAction |
-    SetCurrentTaskAction | ResetTaskFormAction | DeleteTaskAction
+    SetCurrentTaskAction | ResetTaskFormAction | DeleteTaskAction |
+    DeleteAllTasksAction | ArchivedAllTasksAction
